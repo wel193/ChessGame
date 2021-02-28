@@ -2,20 +2,18 @@
  * This interface represents chess piece.
  */
 public interface ChessPiece {
-    int MAXROW = 8;
-    int MAXCOlUMN = 8;
 
     /**
      * Determine current position
      * @return row
      */
-    public int getRow();
+     public int getRow();
 
     /**
      * Determine current position
      * @return column
      */
-    public int getColumn();
+     public int getColumn();
 
     /**
      * Determine color

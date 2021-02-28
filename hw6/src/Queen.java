@@ -1,9 +1,9 @@
-public class Pawn implements ChessPiece{
+public class Queen implements ChessPiece{
     private int row;
     private int column;
     private ChessColor color;
 
-    public Pawn(int row, int column, ChessColor color){
+    public Queen(int row, int column, ChessColor color){
         this.row = row;
         this.column = column;
         this.color = color;
@@ -22,14 +22,12 @@ public class Pawn implements ChessPiece{
     }
 
     public boolean canMove(int x, int y){
-        int temp = (this.getColor() == ChessColor.white)? 1: -1;
-        return (x - this.getRow() == temp) && (y == this.getColumn());
+        return Math.abs((this.getRow() - x) / (this.getColumn() - y)) == 1
+                && (this.getRow() == x ) || (this.getRow() == y));
     }
 
     public boolean canKill(ChessPiece piece){
-        int temp = (this.getColor() == ChessColor.white)? 1 : -1;
-        return (piece.getRow() - this.getRow() == temp)
-                && (piece.getColumn() - this.getColumn() == temp)
+        return (this.canMove(piece.getRow(), piece.getColumn()))
                 && (this.getColor() != piece.getColor());
     }
 }
