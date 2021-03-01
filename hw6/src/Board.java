@@ -1,47 +1,81 @@
 public class Board {
-    private ChessPiece[][] board = new ChessPiece[8][8];
+    private Piece[][] board = new Piece[8][8];
+    private Player white;
+    private Player black;
 
     public Board(){
-        this.resetBoard();
+        this.white = new Player(ChessColor.white);
+        this.black = new Player(ChessColor.black);
+        this.setBoard(ChessColor.white);
+        this.setBoard(ChessColor.black);
     }
 
-    public void resetBoard(){
-        board[0][0] = new Rook(0, 0, ChessColor.white);
-        board[0][1] = new Knight(0, 1, ChessColor.white);
-        board[0][2] = new Bishop(0, 2, ChessColor.white);
-        board[0][3] = new Queen(0, 3, ChessColor.white);
-        board[0][4] = new King(0, 4, ChessColor.white);
-        board[0][5] = new Bishop(0, 5, ChessColor.white);
-        board[0][6] = new Knight(0, 6, ChessColor.white);
-        board[0][7] = new Rook(0, 7, ChessColor.white);
+    public void setBoard(ChessColor color){
+        int firstRow = (color == ChessColor.white) ? 0 : 7;
 
-        board[7][0] = new Rook(0, 0, ChessColor.black);
-        board[7][1] = new Knight(0, 1, ChessColor.black);
-        board[7][2] = new Bishop(0, 2, ChessColor.black);
-        board[7][3] = new Queen(0, 3, ChessColor.black);
-        board[7][4] = new King(0, 4, ChessColor.black);
-        board[7][5] = new Bishop(0, 5, ChessColor.black);
-        board[7][6] = new Knight(0, 6, ChessColor.black);
-        board[7][7] = new Rook(0, 7, ChessColor.black);
+        board[firstRow][0] = new Rook(firstRow, 0, color); // 车
+        board[firstRow][7] = new Rook(firstRow, 7, color);
+        board[firstRow][1] = new Knight(firstRow, 1, color); // 马
+        board[firstRow][6] = new Knight(firstRow, 6, color);
+        board[firstRow][2] = new Bishop(firstRow, 2, color); // 象
+        board[firstRow][5] = new Bishop(firstRow, 5, color);
+        board[firstRow][4] = new Queen(firstRow, 4, color);
 
-        for(int i = 0; i < 8; i ++){
-            board[1][i] = new Pawn(1, i, ChessColor.white);
-            board[6][i] = new Pawn(6, i, ChessColor.black);
+        // store King object also in player's instance variable
+        King king = new King(firstRow, 3, color);
+        board[firstRow][3] = king;
+        if (color == ChessColor.white){
+            this.white.setKing(king);
+        } else {
+            this.black.setKing(king);
+        }
+
+        // 8 pawns
+        int secondRow = (firstRow == 0) ? 1 : 6;
+        for (int i = 0; i < 8; i++){
+            board[secondRow][i] = new Pawn(secondRow, i, color);
         }
     }
 
+    public boolean gameEnd(){
+        return white.win() || black.win();
+    }
+
+    public ChessColor winner(){
+        if (white.win()){
+            return ChessColor.white;
+        }
+        return ChessColor.black;
+    }
 
     public boolean occupied(int row, int col){
         return board[row][col] != null;
     }
 
-    public ChessPiece getPiece(int row, int col){
+    public void makeAvailable(int row, int col){
+        board[row][col] = null;
+    }
+
+    public void placePiece(Piece movingPiece, int destRow, int destCol){
+        board[destRow][destCol] = movingPiece;
+    }
+
+    public void killPiece(int row, int col){
+        board[row][col].killed();
+        makeAvailable(row, col);
+    }
+
+    public Piece getPiece(int row, int col){
         return board[row][col];
     }
 
 
     public void moveChessOnBoard(int startRow, int startCol, int destRow, int destCol){
-
+        Piece movingPiece = this.getPiece(startRow, startCol);
+        if (this.occupied(destRow, destCol)){
+            this.killPiece(destRow, destCol);
+        }
+        this.placePiece(movingPiece, destRow, destCol);
     }
 
     public int getIncrement(int a, int b){

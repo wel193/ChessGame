@@ -1,12 +1,11 @@
+import java.util.*;
+import java.util.Scanner;
+
 public class Game {
-    private Player white;
-    private Player black;
     private Board board;
 
     public Game(){
         board = new Board();
-        white = new Player(ChessColor.white);
-        black = new Player(ChessColor.black);
     }
 
     public Direction getDirection(int startRow, int startCol, int destRow, int destCol){
@@ -18,41 +17,109 @@ public class Game {
         }
 
         int slope = (destCol - startCol) / (destRow - startRow);
-        switch (slope){
-            case 1:
-                return Direction.antiDiagonal;
-            case -1:
-                return Direction.mainDiagonal;
-            default:
-                return Direction.lPattern;
-        }
+        return switch (slope) {
+            case 1 -> Direction.antiDiagonal;
+            case -1 -> Direction.mainDiagonal;
+            default -> Direction.lPattern;
+        };
     }
 
     public boolean pathAvailable(int startRow, int startCol, int destRow, int destCol){
         Direction direction = getDirection(startRow, startCol, destRow, destCol);
-        switch (direction){
-            case horizontal:
-            case vertical:
-                //return board.linePathAvailable(startRow, startCol, destRow, destCol, direction);
-            case mainDiagonal:
-            case antiDiagonal:
-                //return board.diagonalPathAvailable(startRow, startCol, destRow, destCol, direction);
-            default:
-                return true;
-        }
+        return switch (direction) {
+            case horizontal, vertical, mainDiagonal, antiDiagonal -> board.pathAvailable(startRow, startCol, destRow, destCol);
+            default -> true;
+        };
     }
 
-    public boolean inBoardRange(int row, int col){
+    public boolean inRange(int row, int col){
         return row < 0 || col < 0 || row > 7 || col > 7;
     }
 
-    public void moveChess(int startRow, int startCol, int destRow, int destCol) throws IllegalArgumentException{
-        if (!pathAvailable(startRow, startCol, destRow, destCol)){
-            throw new IllegalArgumentException("The path is not available");
+    public void moveChess(int startRow, int startCol, int destRow, int destCol){
+        Piece movingPiece = board.getPiece(startRow, startCol);
+        Piece targetPiece = board.getPiece(destRow, destCol);
+        if (movingPiece.canKill(targetPiece) || movingPiece.canMove(destRow, destCol)) {
+            board.moveChessOnBoard(startRow, startCol, destRow, destCol);
         }
-        ChessPiece piece = board.getPiece(startRow, startCol);
-        if (!board.occupied(destRow, destCol) && piece.canMove(destRow, destCol)){
-
     }
+
+    public boolean canMoveChess(Integer[] list){
+        if (list == null){
+            return false;
+        }
+
+        if (list.length != 4){
+            System.out.println("The coordinate input in not valid");
+            return false;
+        }
+
+        if (!inRange(list[0], list[1]) || !inRange(list[2], list[3])) {
+            System.out.println("The move is out of range");
+            return false;
+        }
+        if (!pathAvailable(list[0], list[1], list[2], list[3])){
+            System.out.println("The move is not valid!");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isMovingWhite(int startRow, int startCol){
+        return board.getPiece(startRow, startCol).getColor() == ChessColor.white;
+    }
+
+    public Integer[] getCorrectCoordinate(Integer[] list, ChessColor color) {
+        while (!canMoveChess(list)) {
+            list = inputCoordinate();
+        }
+        if (color == ChessColor.white){
+            while (!isMovingWhite(list[0], list[1])){
+                System.out.println("You can move the WHITE chess only!");
+                list = inputCoordinate();
+            }
+        }
+        else if (color == ChessColor.black){
+            while(isMovingWhite(list[0], list[1])){
+                System.out.println("You can move the BLACK chess only!");
+                list = inputCoordinate();
+            }
+        }
+        return list;
+    }
+
+    public void playChess(){
+        System.out.println("Game start!");
+        Integer[] listWhite = null;
+        Integer[] listBlack = null;
+        while (!board.gameEnd()) {
+            board.printBoard();
+            System.out.println("\n White turn");
+            listWhite = getCorrectCoordinate(listWhite, ChessColor.white);
+            moveChess(listWhite[0], listWhite[1], listWhite[2], listWhite[3]);
+
+            board.printBoard();
+            System.out.println("\n Black turn");
+            listBlack = getCorrectCoordinate(listBlack, ChessColor.black);
+            moveChess(listBlack[0], listBlack[1], listBlack[2], listBlack[3]);
+        }
+        ChessColor color = board.winner();
+        System.out.println("The winner is " + color);
+    }
+
+    public Integer[] inputCoordinate(){
+        Integer[] list = new Integer[4];
+        System.out.println("Input coordinate (start row, start column, end row, end column): ");
+        Scanner scan = new Scanner(System.in);
+        list[0] = scan.nextInt();
+        list[1] = scan.nextInt();
+        list[2] = scan.nextInt();
+        list[3] = scan.nextInt();
+        return list;
+    }
+
+    public static void main(String[] arg){
+        Game game = new Game();
+        game.playChess();
     }
 }
