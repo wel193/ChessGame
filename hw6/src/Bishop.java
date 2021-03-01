@@ -1,4 +1,4 @@
-public class Bishop extends Piece implements ChessPiece{
+public class Bishop extends Piece {
 
     public Bishop(int row, int col, ChessColor color){
         super(row, col, color);

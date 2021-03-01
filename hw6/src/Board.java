@@ -13,11 +13,11 @@ public class Board {
     public void setBoard(ChessColor color){
         int firstRow = (color == ChessColor.white) ? 0 : 7;
 
-        board[firstRow][0] = new Rook(firstRow, 0, color); // 车
+        board[firstRow][0] = new Rook(firstRow, 0, color);
         board[firstRow][7] = new Rook(firstRow, 7, color);
-        board[firstRow][1] = new Knight(firstRow, 1, color); // 马
+        board[firstRow][1] = new Knight(firstRow, 1, color);
         board[firstRow][6] = new Knight(firstRow, 6, color);
-        board[firstRow][2] = new Bishop(firstRow, 2, color); // 象
+        board[firstRow][2] = new Bishop(firstRow, 2, color);
         board[firstRow][5] = new Bishop(firstRow, 5, color);
         board[firstRow][4] = new Queen(firstRow, 4, color);
 
@@ -58,6 +58,8 @@ public class Board {
 
     public void placePiece(Piece movingPiece, int destRow, int destCol){
         board[destRow][destCol] = movingPiece;
+        movingPiece.setRow(destRow);
+        movingPiece.setColumn(destCol);
     }
 
     public void killPiece(int row, int col){
@@ -73,9 +75,11 @@ public class Board {
     public void moveChessOnBoard(int startRow, int startCol, int destRow, int destCol){
         Piece movingPiece = this.getPiece(startRow, startCol);
         if (this.occupied(destRow, destCol)){
+            System.out.format("%s takes %s \n", this.getPiece(startRow, startCol), this.getPiece(destRow, destCol));
             this.killPiece(destRow, destCol);
         }
         this.placePiece(movingPiece, destRow, destCol);
+        this.makeAvailable(startRow, startCol);
     }
 
     public int getIncrement(int a, int b){
@@ -127,12 +131,11 @@ public class Board {
         for (int i = 0; i < 8; i ++){
             System.out.format("  %-15d", i);
         }
+        System.out.println( );
     }
 
     public static void main(String[] arg){
-        Board b = new Board();
-        b.printBoard();
-        System.out.println( );
-        System.out.println(b.pathAvailable( 1,2,7,2));
+
+
     }
 }

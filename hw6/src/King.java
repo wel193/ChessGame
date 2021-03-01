@@ -1,4 +1,4 @@
-public class King extends Piece implements ChessPiece{
+public class King extends Piece {
 
     public King(int row, int col, ChessColor color){
         super(row, col, color);
