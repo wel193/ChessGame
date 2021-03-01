@@ -1,24 +1,7 @@
-public class Pawn implements ChessPiece{
-    private int row;
-    private int column;
-    private ChessColor color;
+public class Pawn extends Piece implements ChessPiece{
 
-    public Pawn(int row, int column, ChessColor color){
-        this.row = row;
-        this.column = column;
-        this.color = color;
-    }
-
-    public int getRow(){
-        return this.row;
-    }
-
-    public int getColumn(){
-        return this.column;
-    }
-
-    public ChessColor getColor(){
-        return this.color;
+    public Pawn(int row, int col, ChessColor color){
+        super(row, col, color);
     }
 
     public boolean canMove(int x, int y){
@@ -26,6 +9,7 @@ public class Pawn implements ChessPiece{
         return (x - this.getRow() == temp) && (y == this.getColumn());
     }
 
+    @Override
     public boolean canKill(ChessPiece piece){
         int temp = (this.getColor() == ChessColor.white)? 1 : -1;
         return (piece.getRow() - this.getRow() == temp)
