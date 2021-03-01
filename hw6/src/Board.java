@@ -1,8 +1,14 @@
+/**
+ * This represents a Board class with a 2D array board and two Player objects.
+ */
 public class Board {
     private Piece[][] board = new Piece[8][8];
     private Player white;
     private Player black;
 
+    /**
+     * Constructor of Board object and initialized it to a start mode.
+     */
     public Board(){
         this.white = new Player(ChessColor.white);
         this.black = new Player(ChessColor.black);
@@ -10,6 +16,10 @@ public class Board {
         this.setBoard(ChessColor.black);
     }
 
+    /**
+     * Method to set the Board to the start mode. Initialized all Piece at the certain position.
+     * @param color ChessColor
+     */
     public void setBoard(ChessColor color){
         int firstRow = (color == ChessColor.white) ? 0 : 7;
 
@@ -37,41 +47,88 @@ public class Board {
         }
     }
 
+    /**
+     * Method to check if one of the Player is lose.
+     * @return boolean
+     */
     public boolean gameEnd(){
-        return white.win() || black.win();
+        return white.lose() || black.lose();
     }
 
+    /**
+     * Method to get the winner ChessColor.
+     * @return ChessColor of the winner
+     */
     public ChessColor winner(){
-        if (white.win()){
-            return ChessColor.white;
+        if (!gameEnd()){
+            return null;
         }
-        return ChessColor.black;
+        if (white.lose()){
+            return ChessColor.black;
+        }
+        return ChessColor.white;
     }
 
+    /**
+     * Method to check if certain position in row, column has piece.
+     * @param row row value
+     * @param col column value
+     * @return boolean
+     */
     public boolean occupied(int row, int col){
         return board[row][col] != null;
     }
 
+    /**
+     * Method to make the certain position available.
+     * @param row row value
+     * @param col column value
+     */
     public void makeAvailable(int row, int col){
         board[row][col] = null;
     }
 
+    /**
+     * Method to move the Piece to destination position
+     * @param movingPiece the Piece object
+     * @param destRow the destination row
+     * @param destCol the destination col
+     */
     public void placePiece(Piece movingPiece, int destRow, int destCol){
         board[destRow][destCol] = movingPiece;
         movingPiece.setRow(destRow);
         movingPiece.setColumn(destCol);
     }
 
+    /**
+     * Method to kill the piece at certain position
+     * @param row  row value
+     * @param col  column value
+     */
     public void killPiece(int row, int col){
-        board[row][col].killed();
-        makeAvailable(row, col);
+        if (this.occupied(row, col)) {
+            board[row][col].killed();
+            makeAvailable(row, col);
+        }
     }
 
+    /**
+     * Method to get the piece at certain position
+     * @param row the row value
+     * @param col the column value
+     * @return Piece object
+     */
     public Piece getPiece(int row, int col){
         return board[row][col];
     }
 
-
+    /**
+     * Method to move the chess piece on board
+     * @param startRow start row value
+     * @param startCol start column value
+     * @param destRow destination row value
+     * @param destCol destination column value
+     */
     public void moveChessOnBoard(int startRow, int startCol, int destRow, int destCol){
         Piece movingPiece = this.getPiece(startRow, startCol);
         if (this.occupied(destRow, destCol)){
@@ -82,6 +139,12 @@ public class Board {
         this.makeAvailable(startRow, startCol);
     }
 
+    /**
+     * Method to get the increment of position difference. Supplement method of PathAvailable
+     * @param a start row or column value
+     * @param b destination row or column value
+     * @return integer of increment value
+     */
     public int getIncrement(int a, int b){
         if (a < b){
             return 1;
@@ -94,22 +157,33 @@ public class Board {
         }
     }
 
+    /**
+     * Method to check if certain path has block pieces.
+     * @param startRow start row value
+     * @param startCol start column value
+     * @param destRow destination row value
+     * @param destCol destination column value
+     * @return boolean
+     */
     public boolean pathAvailable(int startRow, int startCol, int destRow, int destCol){
         int rowIncrement = getIncrement(startRow, destRow);
         int colIncrement = getIncrement(startCol, destCol);
         destRow -= rowIncrement;
         destCol -= colIncrement;
-        while (startRow != destRow && startCol != destRow){
+        while (startRow != destRow || startCol != destRow){
             startRow += rowIncrement;
             startCol += colIncrement;
             if (this.occupied(startRow, startCol)){
-                System.out.format("%s is block on path!", this.getPiece(startRow, startCol));
+                System.out.format("%s blocks on path! \n", this.getPiece(startRow, startCol));
                 return false;
             }
         }
         return true;
     }
 
+    /**
+     * Method to print out the current board status
+     */
     public void printBoard(){
         for (int i = 7; i >= 0; i --){
             System.out.println("  -----------------------------------------------------------------------------------------------------------------------------------------");
@@ -135,7 +209,11 @@ public class Board {
     }
 
     public static void main(String[] arg){
-
-
+        Board b = new Board();
+        Piece k = b.getPiece(0, 3);
+        b.printBoard();
+        b.moveChessOnBoard(0, 3, 7, 3 );
+        System.out.println(b.gameEnd());
+        System.out.println(b.winner());
     }
 }
