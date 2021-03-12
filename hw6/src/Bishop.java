@@ -8,8 +8,9 @@ public class Bishop extends Piece {
      * @param row the row value
      * @param col the column value
      * @param color the ChessColor
+     * @throws IllegalPieceException if the row or column has invalid value
      */
-    public Bishop(int row, int col, ChessColor color){
+    public Bishop (int row, int col, ChessColor color) throws IllegalPieceException{
         super(row, col, color);
     }
 
@@ -19,7 +20,10 @@ public class Bishop extends Piece {
      * @param col destination column value
      * @return boolean
      */
+    @Override
     public boolean canMove(int row, int col){
-        return Math.abs((this.getRow() - row) / (this.getColumn() - col)) == 1;
+        int rowDiff =  Math.abs(this.getRow() - row);
+        int colDiff = Math.abs (this.getColumn() - col);
+        return rowDiff == colDiff;
     }
 }

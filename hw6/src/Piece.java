@@ -4,35 +4,21 @@
 public abstract class Piece implements ChessPiece {
     private int row;
     private int column;
-    private ChessColor color;
-    private boolean alive = true;
+    private final ChessColor color;
 
     /**
      * Constructor of Piece and initialized it to given row, column, and ChessColor
-     * @param row
-     * @param column
-     * @param color
+     * @param row input row value
+     * @param column input column value
+     * @param color ChessColor object
+     * @throws IllegalPieceException if the row or column is not valid
      */
-    public Piece(int row, int column, ChessColor color){
+    public Piece(int row, int column, ChessColor color) throws IllegalPieceException{
         this.setRow(row);
         this.setColumn(column);
         this.color = color;
     }
 
-    /**
-     * Method to check if the piece is alive
-     * @return boolean
-     */
-    public boolean isAlive(){
-        return this.alive;
-    }
-
-    /**
-     * Method to set alive to false when the piece been killed
-     */
-    public void killed(){
-        this.alive = false;
-    }
 
     /**
      * Accessor method to get the row of Piece object
@@ -45,11 +31,11 @@ public abstract class Piece implements ChessPiece {
     /**
      * Modifier method to set the row of the Piece object
      * @param row the row value
-     * @throws IllegalArgumentException if the row value is not valid
+     * @throws IllegalPieceException if the row value is not valid
      */
-    public void setRow(int row) throws IllegalArgumentException{
+    public void setRow(int row) throws IllegalPieceException{
         if (row < 0 || row > 7){
-            throw new IllegalArgumentException("The row set up is not valid");
+            throw new IllegalPieceException("Row index must be between 0 and 7");
         }
         this.row = row;
     }
@@ -61,22 +47,23 @@ public abstract class Piece implements ChessPiece {
     /**
      * Modifier method to set the column of the Piece object
      * @param col the column value
-     * @throws IllegalArgumentException if the column value is not valid
+     * @throws IllegalPieceException if the column value is not valid
      */
-    public void setColumn(int col) throws IllegalArgumentException{
+    public void setColumn(int col) throws IllegalPieceException{
         if (col < 0 || col > 7){
-            throw new IllegalArgumentException("The column set up is not valid");
+            throw new IllegalPieceException("The column set up is not valid");
         }
         this.column = col;
     }
 
     /**
      * Accessor method to get the color of the calling object
-     * @return
+     * @return the color of the calling object
      */
     public ChessColor getColor(){
         return this.color;
     }
+
 
     /**
      * Abstract method to check if the piece can move following the ChessGame rule
@@ -100,6 +87,7 @@ public abstract class Piece implements ChessPiece {
      * toString method to print out certain piece
      * @return string format of certain piece
      */
+    @Override
     public String toString(){
         return String.format("%s %s", this.getColor(), this.getClass().getName());
     }

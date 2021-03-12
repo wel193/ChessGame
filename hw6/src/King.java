@@ -8,8 +8,9 @@ public class King extends Piece {
      * @param row the row value
      * @param col the column value
      * @param color the ChessColor
+     * @throws IllegalPieceException if the row or column has invalid value
      */
-    public King(int row, int col, ChessColor color){
+    public King(int row, int col, ChessColor color) throws IllegalPieceException{
         super(row, col, color);
     }
 
@@ -19,6 +20,7 @@ public class King extends Piece {
      * @param col destination column value
      * @return boolean
      */
+    @Override
     public boolean canMove(int row, int col){
         int vertical = Math.abs(this.getRow() - row);
         int horizontal = Math.abs(this.getColumn() - col);

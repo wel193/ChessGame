@@ -7,19 +7,19 @@ public interface ChessPiece {
      * Determine current position
      * @return row
      */
-     int getRow();
+     public int getRow();
 
     /**
      * Determine current position
      * @return column
      */
-     int getColumn();
+     public int getColumn();
 
     /**
      * Determine color
      * @return color
      */
-    ChessColor getColor();
+    public ChessColor getColor();
 
     /**
      * Determine if the chess can move to certain position
@@ -27,13 +27,14 @@ public interface ChessPiece {
      * @param col column
      * @return true if can move
      */
-    boolean canMove(int row, int col);
+    public boolean canMove(int row, int col);
 
     /**
      * Determine if the chess can kill the chess input
      * @param piece the ChessPiece object
      * @return boolean
      */
-    boolean canKill(ChessPiece piece);
+    public boolean canKill(ChessPiece piece);
+
 
 }

@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="69373f4e-e10c-4421-a4d5-255e66fba886" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hw6.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hw6.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hw6/Bishop.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hw6/Bishop.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/hw6/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hw6/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hw6/ChessColor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hw6/ChessColor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hw6/Direction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hw6/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hw6/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hw6/King.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hw6/King.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hw6/Knight.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hw6/Knight.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hw6/Pawn.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hw6/Pawn.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hw6/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hw6/Piece.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hw6/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hw6/Queen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hw6/Queen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hw6/Rook.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hw6/Rook.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bishop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessColor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Direction.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/King.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Knight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pawn.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Queen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rook.java" afterDir="false" />
     </list>
@@ -27,6 +42,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Class" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -51,11 +67,19 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="create.test.in.the.same.root" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -65,23 +89,17 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.Game">
-    <configuration name="Board" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Board" />
-      <module name="hw6" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Game" />
-      <module name="hw6" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Pawn" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Pawn" />
       <module name="hw6" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -100,11 +118,49 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="KnightTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hw6" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="KnightTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PawnTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hw6" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="PawnTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QueenTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hw6" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="QueenTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RookTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hw6" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="RookTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Game" />
-        <item itemvalue="Application.Board" />
-        <item itemvalue="Application.Pawn" />
+        <item itemvalue="JUnit.PawnTest" />
+        <item itemvalue="JUnit.RookTest" />
+        <item itemvalue="JUnit.QueenTest" />
+        <item itemvalue="JUnit.KnightTest" />
       </list>
     </recent_temporary>
   </component>
@@ -118,6 +174,13 @@
       <updated>1614467693032</updated>
       <workItem from="1614467697056" duration="47366000" />
       <workItem from="1614580391373" duration="8199000" />
+      <workItem from="1614637670007" duration="60000" />
+      <workItem from="1614639542575" duration="90000" />
+      <workItem from="1614719352975" duration="488000" />
+      <workItem from="1615081074288" duration="11597000" />
+      <workItem from="1615164616293" duration="174000" />
+      <workItem from="1615256607704" duration="466000" />
+      <workItem from="1615319555655" duration="21742000" />
     </task>
     <servers />
   </component>
@@ -147,5 +210,19 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/Game.java</url>
+          <line>152</line>
+          <properties class="Game" method="main">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

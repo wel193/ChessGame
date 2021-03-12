@@ -8,8 +8,9 @@ public class Pawn extends Piece {
      * @param row the row value
      * @param col the column value
      * @param color the ChessColor
+     * @throws IllegalPieceException if the row or column has invalid value
      */
-    public Pawn(int row, int col, ChessColor color){
+    public Pawn(int row, int col, ChessColor color) throws IllegalPieceException{
         super(row, col, color);
     }
 
@@ -19,8 +20,9 @@ public class Pawn extends Piece {
      * @param col destination column value
      * @return boolean
      */
+    @Override
     public boolean canMove(int row, int col){
-        int temp = (this.getColor() == ChessColor.white)? 1: -1;
+        int temp = (this.getColor() == ChessColor.WHITE)? 1: -1;
         return (row - this.getRow() == temp) && (col == this.getColumn());
     }
 
@@ -31,7 +33,7 @@ public class Pawn extends Piece {
      */
     @Override
     public boolean canKill(ChessPiece piece){
-        int temp = (this.getColor() == ChessColor.white)? 1 : -1;
+        int temp = (this.getColor() == ChessColor.WHITE)? 1 : -1;
         return (piece.getRow() - this.getRow() == temp)
                 && Math.abs(piece.getColumn() - this.getColumn()) == 1
                 && (this.getColor() != piece.getColor());

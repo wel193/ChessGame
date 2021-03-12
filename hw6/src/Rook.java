@@ -8,8 +8,9 @@ public class Rook extends Piece {
      * @param row the row value
      * @param col the column value
      * @param color the ChessColor
+     * @throws IllegalPieceException if the row or column has invalid value
      */
-    public Rook(int row, int col, ChessColor color){
+    public Rook(int row, int col, ChessColor color) throws IllegalPieceException{
         super(row, col, color);
     }
 
@@ -19,6 +20,7 @@ public class Rook extends Piece {
      * @param col destination column value
      * @return boolean
      */
+    @Override
     public boolean canMove(int row, int col){
         return this.getRow() == row || this.getColumn() == col;
     }

@@ -9,11 +9,30 @@ public class Game {
 
     /**
      * Constructor of Game object with a new Board object
+     * @throws IllegalPieceException if the row or column has invalid value in the Board class
      */
-    public Game(){
+    public Game() {
         board = new Board();
     }
 
+    /**
+     * Method to print out the winner
+     */
+    public void printOutWinner(){
+        if (board.isBlackKingAlive()){
+            System.out.println("Black wins!");
+        }else{
+            System.out.println("White wins!");
+        }
+    }
+
+    /**
+     * Method to check if one of the king being killed
+     * @return
+     */
+    public boolean gameEnd(){
+        return !board.isBlackKingAlive() || !board.isWhiteKingAlive();
+    }
     /**
      * Method to check if certain position is in the range of board
      * @param row the row value
@@ -24,67 +43,15 @@ public class Game {
         return row < 0 || col < 0 || row > 7 || col > 7;
     }
 
-    /**
-     * Method to move the piece at the starting position can move to the destination position
-     * @param startRow start row value
-     * @param startCol start column value
-     * @param destRow destination row value
-     * @param destCol destination column value
-     */
-    public void moveChess(int startRow, int startCol, int destRow, int destCol){
-        System.out.format("Moving %s from (%d, %d) to (%d, %d) \n", board.getPiece(startRow, startCol), startRow, startCol, destRow, destCol);
-        board.moveChessOnBoard(startRow, startCol, destRow, destCol);
-    }
 
     /**
-     * Method to check if the piece at the starting position can move to the destination position
-     * @param list the coordinate input by user
-     * @return boolean
-     */
-    public boolean canMoveChess(Integer[] list){
-        //first check if both starting coordinate and destination coordinate is in the range of board
-        if (notInRange(list[0], list[1]) || notInRange(list[2], list[3])) {
-            System.out.println("This move is out of range");
-            return false;
-        }
-
-        Piece movingPiece = board.getPiece(list[0], list[1]);
-        Piece targetPiece = board.getPiece(list[2], list[3]);
-
-        //Check if the starting position has piece
-        if (movingPiece == null) {
-            System.out.println("The moving piece is not selected");
-            return false;
-        }
-
-        //Check if the moving piece has blocked path
-        if (!(movingPiece instanceof Knight) && !board.pathAvailable(list[0], list[1], list[2], list[3])){
-            return false;
-        }
-
-        //return ture if there has target piece at destination coordinate and the moving piece can do the kill move.
-        if (targetPiece != null && movingPiece.canKill(targetPiece)) {
-           return true;
-        }
-
-        //return ture if there has no piece at destination coordinate and the moving piece can make the move.
-        if (targetPiece == null && movingPiece.canMove(list[2], list[3])){
-            return true;
-        }
-
-        //Otherwise, the move will not be valid.
-        System.out.println("This move is not valid");
-        return false;
-    }
-
-    /**
-     * Method to check if the user is selected to valid ChessColor piece.
+     * Method to check if the user selectes the valid ChessColor piece.
      * @param startRow start row value
      * @param startCol start column value
      * @return boolean
      */
     public boolean isMovingWhite(int startRow, int startCol){
-        return board.getPiece(startRow, startCol).getColor() == ChessColor.white;
+        return board.getPiece(startRow, startCol).getColor() == ChessColor.WHITE;
     }
 
     /**
@@ -92,26 +59,34 @@ public class Game {
      * @param list the list of coordinate input
      * @param color ChessColor
      * @return boolean
+     * @throws IllegalCoordinateInput if the coordinate input is invalid
      */
-    public boolean getValidCoordinate(Integer[] list, ChessColor color) {
-        //first check if the coordinate input has four number
-        if (list == null || list.length != 4){
-            System.out.println("The coordinate input in not valid");
+    public boolean getValidCoordinate(Integer[] list, ChessColor color){
+        // check if the coordinate is in range
+        if (notInRange(list[0], list[1]) || notInRange(list[2], list[3])) {
+            System.out.println("This move is out of range");
             return false;
         }
 
-        //Check if the selected moving piece matchs the turn
-        if (color == ChessColor.white && !isMovingWhite(list[0], list[1])){
+        //check if the starting coordinate is selected.
+        Piece movingPiece = board.getPiece(list[0], list[1]);
+        if (movingPiece == null) {
+            System.out.println("The moving piece is not selected");
+            return false;
+        }
+        //Check if the selected moving piece matches the turn
+        if (color == ChessColor.WHITE && !isMovingWhite(list[0], list[1])){
             System.out.println("You can only move WHITE chess");
             return false;
         }
-        else if (color == ChessColor.black && isMovingWhite(list[0], list[1])){
-            System.out.println("You can only move BLACK chess");
+        else if (color == ChessColor.BLACK && isMovingWhite(list[0], list[1])){
+           System.out.println("You can only move BLACK chess");
             return false;
         }
 
         //then check if the list input has valid move
-        if (!canMoveChess(list)){
+        if (!board.canMoveChess(list)){
+            System.out.println("This move is not valid");
             return false;
         }
 
@@ -125,35 +100,34 @@ public class Game {
     public void turn(ChessColor color){
         Integer[] inputList = null;
         board.printBoard();
-        if (color == ChessColor.white){
+        if (color == ChessColor.WHITE){
             System.out.println("\n======> White turn");
         }
         else{
             System.out.println("\n======> Black turn");
         }
-        while(!getValidCoordinate(inputList, color)){
+        while(inputList == null || !getValidCoordinate(inputList, color)){
             inputList = inputCoordinate();
         }
-        moveChess(inputList[0], inputList[1], inputList[2], inputList[3]);
+        board.moveChessOnBoard(inputList[0], inputList[1], inputList[2], inputList[3]);
 
     }
 
     /**
      * Method to initiated the game of chess.
      */
-    public void playChess(){
+    public void playChess() {
         System.out.println("Game start!");
-        while (!board.gameEnd()) {
+        while (!this.gameEnd()) {
 
             //the white go first in the chess game
-            this.turn(ChessColor.white);
-            if (board.gameEnd()){
+            this.turn(ChessColor.WHITE);
+            if (this.gameEnd()){
                 break;
             }
-            this.turn(ChessColor.black);
+            this.turn(ChessColor.BLACK);
         }
-        ChessColor color = board.winner();
-        System.out.println("The winner is " + color);
+        printOutWinner();
     }
 
     /**
@@ -174,9 +148,11 @@ public class Game {
     /**
      * Main function to execute the game start.
      * @param arg entry point
+     *
      */
-    public static void main(String[] arg){
+    public static void main(String[] arg) {
         Game game = new Game();
         game.playChess();
+
     }
 }
